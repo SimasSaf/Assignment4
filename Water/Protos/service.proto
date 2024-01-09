@@ -1,0 +1,50 @@
+//set the language version
+syntax = "proto3";
+
+//this will translate into C# namespace
+package Services;
+
+//this will translate into service and service client stubs
+service Wolf {
+	rpc EnterWolfArea(RabbitDesc) returns (IntMsg);
+	rpc SpawnWaterNearWolf(WaterDesc) returns (IntMsg);
+	rpc UpdateRabbitDistanceToWolf(RabbitDesc) returns (Empty);
+	rpc IsRabbitAlive(RabbitDesc) returns (BoolMsg);
+	rpc IsWaterAlive(WaterDesc) returns (BoolMsg);
+}
+
+//this is used for calls that do accept inputs or produce outputs
+message Empty {    
+}
+
+//single value structures
+message IntMsg {
+	int32 value = 1;
+}
+
+message BoolMsg {
+	bool value = 1;
+}
+
+//Rabbit descriptor
+message RabbitDesc {
+    int32 RabbitID = 1;
+    string RabbitName = 2;
+    int32 Weight = 3;
+    int32 DistanceToWolf = 4;
+    bool IsRabbitAlive = 5;
+}
+
+//Water descriptor
+message WaterDesc {
+    int32 WaterID = 1;
+    int32 Volume = 2;
+    int32 X = 3;
+    int32 Y = 4;
+}
+
+//passing attempt result descriptor
+message PassAttemptResult {
+	bool IsSuccess = 1;
+	string CrashReason = 2;
+}
